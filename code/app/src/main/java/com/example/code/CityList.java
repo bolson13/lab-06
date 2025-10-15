@@ -23,6 +23,18 @@ public class CityList {
     }
 
     /**
+     * This deletes a city from the list if the city exists.
+     * @param city
+     * This is the candidate city for deletion.
+     */
+    public void delete(City city) {
+        if (!cities.contains(city)) {
+            throw new IllegalArgumentException();
+        }
+        cities.remove(city);
+    }
+
+    /**
      * This returns a sorted list of cities
      * @return
      * Return the sorted list
@@ -31,5 +43,30 @@ public class CityList {
         List<City> list = cities;
         Collections.sort(list);
         return list;
+    }
+
+    /**
+     * This checks if the list contains the provided city.
+     * @param city
+     * This is the city which will be compared to cities in the list.
+     * @return
+     * Returns a boolean which indicates whether the list has the city that is being checked and that it was successfully removed.
+     */
+    public boolean hasCity(City city) {
+        ArrayList<City> citiesToRemove = new ArrayList<>();
+        for (City compareCity : cities) {
+            if (city.equals(compareCity)) {
+                citiesToRemove.add(compareCity);
+            }
+        }
+
+        if (!citiesToRemove.isEmpty()) {
+            for (City compareCity : citiesToRemove) {
+                delete(compareCity);
+            }
+            return true;
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 }
